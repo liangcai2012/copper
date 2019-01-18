@@ -2,7 +2,6 @@ import pandas as pd
 from matplotlib.finance import * 
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-from matplotlib.finance import quotes_historical_yahoo_ohlc, candlestick_ohlc
 
 _strp = lambda x : str(int(x)) if x-int(x)==0 else str(x)
 path = "./minutes.csv"

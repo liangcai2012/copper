@@ -17,6 +17,9 @@ dst_end = [20161107, 20171103, 20181105]
 def load_data():
     return pd.read_csv(path, parse_dates={'ts':['SDATE','UTCBARTS']}, index_col='ts', date_parser=_parser) 
 
+def load_data_csv(csv_path):
+    return pd.read_csv(csv_path, parse_dates={'ts':['SDATE','UTCBARTS']}, index_col='ts', date_parser=_parser) 
+
 def __extract_dates():
     df = load_data()
     udf = df.drop_duplicates('UTCDATE')

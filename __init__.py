@@ -238,13 +238,9 @@ def filter(df):
 
 
 
-def plotbar(df, ndate):
-    fig, axes = plt.subplots()
-    bar_df = slice(df, ndate, ["OPEN", "HIGH", "LOW", "LAST","TRADES"])
-    bar_list = []
-    for i, row in bar_df.iterrows():
-        bar_list.append([date2num(i), row["OPEN"], row["HIGH"], row["LOW"], row["LAST"], row["TRADES"]]) 
-    candlestick_ohlc(axes, bar_list, width=0.002, colorup='g')
+def plotbar(df, ndate, col="OPEN"):
+    ddf = slice(df, ndate, ["OPEN", "HIGH", "LOW", "LAST","TRADES"])
+    ddf.plot(y=col)
     plt.show()
 
 
@@ -252,6 +248,7 @@ def plotbar(df, ndate):
 #__extract_hourly()
 #__extract_daily_ext()
 #exit()
-filter(df)
+#filter(df)
 #exit()
-#plotbar(df, 20180801)
+df = load_data()
+plotbar(df, 20180801)

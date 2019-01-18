@@ -178,7 +178,7 @@ def slice(df, ndate, cols):
 def dates(df):
     return df.drop_duplicates('UTCDATE')
 
-def filter(path, valve = 10, over_night = True, print_all = False):
+def trigger(path, valve = 10, over_night = True, print_all = False):
     print "date,startmin,endmin,c0,c1,c17,c18,ch17_18,ch17_0,gap,ch1_0"
     df = load_data_csv(path+"/minutes.csv")
     udf = pd.read_csv(path+"/start_hour.csv") 

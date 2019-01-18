@@ -251,5 +251,5 @@ def plotbar(df, ndate, col="OPEN"):
 #exit()
 #filter(df)
 #exit()
-df = load_data()
-plotbar(df, 20180801)
+#df = load_data()
+#plotbar(df, 20180801)

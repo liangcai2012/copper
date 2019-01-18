@@ -265,6 +265,6 @@ def plotdailybar(daily_df, col="open"):
 #__extract_daily_ext()
 #exit()
 
-filter('.')
+#filter('.')
 #exit()
 #plotdailybar()

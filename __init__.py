@@ -20,6 +20,10 @@ def load_data():
 def load_data_csv(csv_path):
     return pd.read_csv(csv_path, parse_dates={'ts':['SDATE','UTCBARTS']}, index_col='ts', date_parser=_parser) 
 
+def load_daily_data(csv_path):
+    return  pd.read_csv(csv_path, index_col=[0], date_parser=lambda x:pd.datetime.strptime(x, "%Y%m%d"))
+ 
+
 def __extract_dates():
     df = load_data()
     udf = df.drop_duplicates('UTCDATE')
@@ -244,6 +248,10 @@ def plotbar(df, ndate, col="OPEN"):
     ddf.plot(y=col)
     plt.show()
 
+def plotdailybar(daily_df, col="open"):
+    daily_df.plot(y=col)
+    plt.show()
+
 
 #print slice(20180102, ["OPEN", "HIGH", "LOW", "LAST","TRADES","TICKS","CHANGECMO","IBS"])
 #__extract_hourly()
@@ -251,5 +259,4 @@ def plotbar(df, ndate, col="OPEN"):
 #exit()
 #filter(df)
 #exit()
-#df = load_data()
-#plotbar(df, 20180801)
+#plotdailybar()

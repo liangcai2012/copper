@@ -178,9 +178,10 @@ def slice(df, ndate, cols):
 def dates(df):
     return df.drop_duplicates('UTCDATE')
 
-def filter(df, valve = 10, over_night = True, print_all = False):
+def filter(path, valve = 10, over_night = True, print_all = False):
     print "date,startmin,endmin,c0,c1,c17,c18,ch17_18,ch17_0,gap,ch1_0"
-    udf = pd.read_csv(start_hour_path)
+    df = load_data_csv(path+"/minutes.csv")
+    udf = pd.read_csv(path+"/start_hour.csv") 
     prev_c17 = prev_c18 = "n"
     for i, row in udf.iterrows():
         ents = []
@@ -264,6 +265,6 @@ def plotdailybar(daily_df, col="open"):
 #__extract_daily_ext()
 #exit()
 
-#filter(load_data())
+filter('.')
 #exit()
 #plotdailybar()

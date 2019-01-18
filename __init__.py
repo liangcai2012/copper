@@ -178,13 +178,13 @@ def slice(df, ndate, cols):
 def dates(df):
     return df.drop_duplicates('UTCDATE')
 
-def filter(df):
-    print "date,startmin,endmin,c0,c1,c17,c18,ch17_18_abs,ch17_0_abs,ch17_0,ch1_0"
-    udf = dates(df)
+def filter(df, valve = 10, over_night = True, print_all = False):
+    print "date,startmin,endmin,c0,c1,c17,c18,ch17_18,ch17_0,gap,ch1_0"
+    udf = pd.read_csv(start_hour_path)
     prev_c17 = prev_c18 = "n"
     for i, row in udf.iterrows():
         ents = []
-        ddate = row["UTCDATE"] 
+        ddate = row["date"] 
         strdate = str(ddate)
         dsdate = False
         for j in range(3):
@@ -218,27 +218,33 @@ def filter(df):
         ents.append(str(c17))
         ents.append(str(c18))
         if prev_c17 == "n":
-            ch17_18_abs = ch17_18 = "n"
+            ch17_18 = "n"
         else:
             ch17_18 = prev_c18 - prev_c17
-            ch17_18_abs = ch17_18 if ch17_18 >=0 else (0-ch17_18)
-        ents.append(str(ch17_18_abs))
+        ents.append(str(ch17_18))
         if prev_c17 == "n" or c0 == "n":
-            ch17_0_abs = ch17_0 = "n"
+            ch17_0 = "n"
         else:
             ch17_0 = c0 - prev_c17
-            ch17_0_abs = ch17_0 if ch17_0 >=0 else (0-ch17_0)
-        ents.append(str(ch17_0_abs))
+        ents.append(str(ch17_0))
         prev_c17 = c17
         prev_c18 = c18
 
-        if ch17_0_abs < 10 or ch17_0_abs == "n":
+        measure_gap = ch17_0
+        if not over_night:
+            measure_gap = ch17_18
+        measure_gap_abs = measure_gap if measure_gap >=0 else (0-measure_gap)
+
+        if measure_gap_abs < valve or measure_gap == "n":
             ents.append("n")
             ents.append("n")
         else:
-            ents.append(str(ch17_0))
+            ents.append(str(measure_gap_abs))
             ents.append(str(c1 -c0))
-        print ','.join(ents) 
+        line = ','.join(ents) 
+
+        if 'n' not in line or print_all:
+            print line
 
 
 
@@ -257,6 +263,7 @@ def plotdailybar(daily_df, col="open"):
 #__extract_hourly()
 #__extract_daily_ext()
 #exit()
-#filter(df)
+
+#filter(load_data())
 #exit()
 #plotdailybar()

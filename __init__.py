@@ -1,5 +1,4 @@
 import pandas as pd
-from matplotlib.finance import * 
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
